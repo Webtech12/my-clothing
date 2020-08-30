@@ -8,7 +8,7 @@ import { ReactComponent as Logo } from "../../assets/crown.svg";
 import CartIcon from "../cart-icon/CartIcon.component";
 import CartDropdown from "../cart-dropdown/CartDropdown.component";
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, hidden }) => {
   const currentUserState = currentUser ? (
     <div className="option" onClick={() => auth.signOut()}>
       SIGN OUT
@@ -18,6 +18,8 @@ const Header = ({ currentUser }) => {
       SIGN IN
     </Link>
   );
+
+  const toggleCart = hidden ? null : <CartDropdown />;
 
   return (
     <div className="header">
@@ -34,13 +36,14 @@ const Header = ({ currentUser }) => {
         {currentUserState}
         <CartIcon />
       </div>
-      <CartDropdown />
+      {toggleCart}
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+  currentUser,
+  hidden,
 });
 
 export default connect(mapStateToProps)(Header);
