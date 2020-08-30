@@ -5,9 +5,7 @@ import CollectionItem from "../collection-item/CollectionItem.component";
 const CollectionPreview = ({ title, items }) => {
   const itemsList = items
     .filter((item, idx) => idx < 4)
-    .map(({ id, ...otherPreviewProps }) => (
-      <CollectionItem key={id} {...otherPreviewProps} />
-    ));
+    .map((item) => <CollectionItem key={item.id} item={item} />);
 
   return (
     <div className="collection-preview">
